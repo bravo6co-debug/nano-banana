@@ -11,7 +11,7 @@ import { ResultsHistoryPanel } from '@/components/ResultsHistoryPanel'
 import { Button } from '@/components/ui/button'
 import { useAppStore } from '@/lib/store'
 import { presetTemplates, type PresetTemplate } from '@/lib/prompts'
-import { Sparkles, Shield, Info, ArrowLeft } from 'lucide-react'
+import { Sparkles, Shield, Info, ArrowLeft, RefreshCw } from 'lucide-react'
 
 export default function HomePage() {
   // Main workflow states
@@ -32,7 +32,8 @@ export default function HomePage() {
     setError,
     error,
     clearPrompts,
-    setCustomPrompt
+    setCustomPrompt,
+    clearUploadedImages
   } = useAppStore()
 
   const combinedPrompt = [...selectedPrompts, customPrompt].filter(Boolean).join(', ')
@@ -104,7 +105,22 @@ export default function HomePage() {
             </div>
           )
         case 3: // Generate/Results
-          return <ResultsHistoryPanel />
+          return (
+            <div>
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-xl font-semibold">생성 결과</h3>
+                <Button
+                  onClick={handleReset}
+                  variant="outline"
+                  size="sm"
+                >
+                  <RefreshCw className="w-4 h-4 mr-2" />
+                  처음부터 다시 시작
+                </Button>
+              </div>
+              <ResultsHistoryPanel />
+            </div>
+          )
         default:
           return null
       }
@@ -183,7 +199,22 @@ export default function HomePage() {
             </div>
           )
         case 5: // Generate/Results
-          return <ResultsHistoryPanel />
+          return (
+            <div>
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-xl font-semibold">편집 결과</h3>
+                <Button
+                  onClick={handleReset}
+                  variant="outline"
+                  size="sm"
+                >
+                  <RefreshCw className="w-4 h-4 mr-2" />
+                  처음부터 다시 시작
+                </Button>
+              </div>
+              <ResultsHistoryPanel />
+            </div>
+          )
         default:
           return null
       }
@@ -205,6 +236,18 @@ export default function HomePage() {
   const handleTemplateSelect = (template: typeof presetTemplates[0]) => {
     setSelectedTemplate(template)
     setCustomPrompt(template.prompt)
+  }
+
+  const handleReset = () => {
+    // Reset all states to initial
+    setMainMode(null)
+    setEditOption(null)
+    setCurrentStep(0)
+    setSelectedTemplate(null)
+    clearPrompts()
+    setCustomPrompt('')
+    clearUploadedImages()
+    setError(null)
   }
 
   const handleBack = () => {

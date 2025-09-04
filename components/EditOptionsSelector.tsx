@@ -9,7 +9,8 @@ import {
   Sparkles,
   Maximize,
   Wand2,
-  Image
+  Image,
+  Check
 } from 'lucide-react'
 
 export type EditOption = 
@@ -118,8 +119,8 @@ export function EditOptionsSelector({ selectedOption, onOptionSelect }: EditOpti
                 "hover:scale-[1.02] hover:shadow-lg group",
                 "focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
                 isSelected ? [
-                  "border-primary shadow-lg scale-[1.02]",
-                  "bg-gradient-to-br from-primary/5 to-primary/10"
+                  "border-primary border-2 shadow-xl scale-[1.02] ring-4 ring-primary/20",
+                  "bg-gradient-to-br from-primary/10 to-primary/20"
                 ] : [
                   "border-border hover:border-primary/50",
                   "bg-card hover:bg-accent/5"
@@ -127,8 +128,10 @@ export function EditOptionsSelector({ selectedOption, onOptionSelect }: EditOpti
               )}
             >
               {isSelected && (
-                <div className="absolute top-2 right-2">
-                  <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+                <div className="absolute top-2 right-2 flex items-center gap-1">
+                  <div className="bg-primary text-white p-1 rounded-full">
+                    <Check className="w-3 h-3" />
+                  </div>
                 </div>
               )}
               
