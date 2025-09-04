@@ -47,7 +47,7 @@ export function PromptBuilder({ compact = false, showHeader = true }: PromptBuil
   
   return (
     <div className={cn(
-      "flex flex-col bg-card rounded-lg border p-4",
+      "flex flex-col bg-card rounded-lg border-2 border-primary p-4 shadow-lg",
       compact ? "h-auto" : "h-full"
     )}>
       {showHeader && (
@@ -138,14 +138,21 @@ export function PromptBuilder({ compact = false, showHeader = true }: PromptBuil
       
       {/* Custom Prompt Input */}
       <div className="space-y-2">
-        <textarea
-          value={customPrompt}
-          onChange={(e) => setCustomPrompt(e.target.value)}
-          placeholder="추가 프롬프트를 입력하세요..."
-          className="w-full p-2 text-sm border rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-ring"
-          rows={3}
-          disabled={isGenerating}
-        />
+        <div className="relative">
+          <textarea
+            value={customPrompt}
+            onChange={(e) => setCustomPrompt(e.target.value)}
+            placeholder="프롬프트를 입력하세요... (예: 화려한 색상의 풍경화)"
+            className="w-full p-3 text-sm border-2 border-blue-400 rounded-lg resize-none focus:outline-none focus:ring-4 focus:ring-blue-200 focus:border-blue-500 bg-white dark:bg-gray-900 placeholder:text-blue-400/60"
+            rows={3}
+            disabled={isGenerating}
+          />
+          <div className="absolute top-2 right-2">
+            <Badge className="bg-blue-500 text-white text-xs">
+              필수 입력
+            </Badge>
+          </div>
+        </div>
         
         {/* Selected Prompts */}
         {selectedPrompts.length > 0 && (
