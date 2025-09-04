@@ -2,7 +2,7 @@
 
 import { ReactNode } from 'react'
 import { Button } from '@/components/ui/button'
-import { ChevronLeft, ChevronRight, SkipForward } from 'lucide-react'
+import { ChevronLeft, ChevronRight, SkipForward, Sparkles } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { type MainMode } from '@/components/MainModeSelector'
 import { type EditOption } from '@/components/EditOptionsSelector'
@@ -142,7 +142,10 @@ export function RouteManager({
           variant="outline"
           onClick={onBack}
           disabled={currentStep === 0}
-          className={cn(currentStep === 0 && "invisible")}
+          className={cn(
+            currentStep === 0 && "invisible",
+            "hover:bg-gray-100 dark:hover:bg-gray-800 border-gray-300 dark:border-gray-600"
+          )}
         >
           <ChevronLeft className="w-4 h-4 mr-2" />
           이전 단계
@@ -153,7 +156,7 @@ export function RouteManager({
             <Button
               variant="ghost"
               onClick={onSkip}
-              className="text-muted-foreground"
+              className="text-muted-foreground hover:text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-950/20"
             >
               <SkipForward className="w-4 h-4 mr-2" />
               건너뛰기
@@ -163,9 +166,17 @@ export function RouteManager({
           <Button
             onClick={onNext}
             disabled={!canProceed && !isOptionalStep}
+            className={cn(
+              currentStep === steps.length - 1
+                ? "bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg"
+                : "bg-primary hover:bg-primary/90"
+            )}
           >
             {currentStep === steps.length - 1 ? (
-              '생성하기'
+              <>
+                <Sparkles className="w-4 h-4 mr-2" />
+                생성하기
+              </>
             ) : (
               <>
                 다음 단계
