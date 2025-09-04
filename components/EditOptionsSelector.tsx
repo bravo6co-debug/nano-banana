@@ -119,18 +119,18 @@ export function EditOptionsSelector({ selectedOption, onOptionSelect }: EditOpti
                 "hover:scale-[1.02] hover:shadow-lg group",
                 "focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
                 isSelected ? [
-                  "border-primary border-2 shadow-xl scale-[1.02] ring-4 ring-primary/20",
-                  "bg-gradient-to-br from-primary/10 to-primary/20"
+                  "border-primary !border-4 shadow-2xl scale-[1.03] ring-4 ring-primary/30",
+                  "bg-gradient-to-br from-primary/20 to-primary/30"
                 ] : [
-                  "border-border hover:border-primary/50",
-                  "bg-card hover:bg-accent/5"
+                  "border-gray-200 dark:border-gray-700 hover:border-primary/50",
+                  "bg-white dark:bg-gray-900 hover:bg-accent/5"
                 ]
               )}
             >
               {isSelected && (
-                <div className="absolute top-2 right-2 flex items-center gap-1">
-                  <div className="bg-primary text-white p-1 rounded-full">
-                    <Check className="w-3 h-3" />
+                <div className="absolute top-2 right-2 flex items-center gap-1 z-10">
+                  <div className="bg-primary text-white p-1.5 rounded-full shadow-lg animate-bounce">
+                    <Check className="w-4 h-4" />
                   </div>
                 </div>
               )}

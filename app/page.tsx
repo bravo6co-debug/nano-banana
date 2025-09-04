@@ -87,19 +87,58 @@ export default function HomePage() {
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <PromptBuilder />
-                <div className="bg-muted/30 rounded-lg p-6">
-                  <h3 className="font-medium mb-4">현재 프롬프트</h3>
+                <div className="space-y-4">
                   {selectedTemplate && (
-                    <div className="mb-4 p-3 bg-primary/10 rounded">
-                      <p className="text-sm font-medium mb-1">{selectedTemplate.name}</p>
-                      <p className="text-xs text-muted-foreground">{selectedTemplate.prompt}</p>
+                    <div className="bg-amber-50 dark:bg-amber-950/20 rounded-lg p-6 border-2 border-amber-300 dark:border-amber-700">
+                      <h3 className="font-medium mb-3 text-amber-900 dark:text-amber-100">
+                        📝 템플릿 기본 프롬프트
+                      </h3>
+                      <div className="p-3 bg-white dark:bg-gray-900 rounded border border-amber-200 dark:border-amber-800">
+                        <p className="text-sm font-medium mb-2 text-amber-700 dark:text-amber-300">
+                          {selectedTemplate.name}
+                        </p>
+                        <p className="text-xs text-gray-600 dark:text-gray-400 italic">
+                          {selectedTemplate.prompt}
+                        </p>
+                      </div>
                     </div>
                   )}
-                  {combinedPrompt && (
-                    <div className="p-3 bg-card rounded border text-sm">
-                      {combinedPrompt}
+                  
+                  <div className="bg-blue-50 dark:bg-blue-950/20 rounded-lg p-6 border-2 border-blue-300 dark:border-blue-700">
+                    <h3 className="font-medium mb-3 text-blue-900 dark:text-blue-100">
+                      ✨ 추가 입력된 프롬프트
+                    </h3>
+                    {combinedPrompt ? (
+                      <div className="p-3 bg-white dark:bg-gray-900 rounded border border-blue-200 dark:border-blue-800">
+                        <p className="text-sm text-gray-700 dark:text-gray-300">
+                          {customPrompt || "추가 프롬프트가 없습니다"}
+                        </p>
+                        {selectedPrompts.length > 0 && (
+                          <div className="mt-2 pt-2 border-t border-blue-200 dark:border-blue-800">
+                            <p className="text-xs text-blue-600 dark:text-blue-400 mb-1">선택된 옵션:</p>
+                            <p className="text-xs text-gray-600 dark:text-gray-400">
+                              {selectedPrompts.join(', ')}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <p className="text-sm text-gray-500 italic">
+                        아직 추가된 프롬프트가 없습니다
+                      </p>
+                    )}
+                  </div>
+                  
+                  <div className="bg-green-50 dark:bg-green-950/20 rounded-lg p-4 border border-green-300 dark:border-green-700">
+                    <h4 className="text-sm font-medium text-green-900 dark:text-green-100 mb-2">
+                      🎯 최종 생성될 프롬프트
+                    </h4>
+                    <div className="p-2 bg-white dark:bg-gray-900 rounded text-xs text-gray-700 dark:text-gray-300 border border-green-200 dark:border-green-800">
+                      {selectedTemplate 
+                        ? `${selectedTemplate.prompt}${combinedPrompt ? ', ' + combinedPrompt : ''}`
+                        : combinedPrompt || '프롬프트를 입력해주세요'}
                     </div>
-                  )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -175,25 +214,70 @@ export default function HomePage() {
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <PromptBuilder />
-                <div className="bg-muted/30 rounded-lg p-6">
-                  <h3 className="font-medium mb-4">편집 설정</h3>
-                  {editOption && (
-                    <div className="mb-4 p-3 bg-primary/10 rounded">
-                      <p className="text-sm font-medium">
-                        {editOption.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
+                <div className="space-y-4">
+                  {/* Edit Mode Info */}
+                  <div className="bg-purple-50 dark:bg-purple-950/20 rounded-lg p-4 border-2 border-purple-300 dark:border-purple-700">
+                    <h3 className="font-medium mb-3 text-purple-900 dark:text-purple-100">
+                      🎨 편집 모드 정보
+                    </h3>
+                    {editOption && (
+                      <div className="p-2 bg-white dark:bg-gray-900 rounded border border-purple-200 dark:border-purple-800">
+                        <p className="text-sm font-medium text-purple-700 dark:text-purple-300">
+                          {editOption.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
+                        </p>
+                      </div>
+                    )}
+                    {uploadedImages.length > 0 && (
+                      <div className="mt-2 p-2 bg-white dark:bg-gray-900 rounded border border-purple-200 dark:border-purple-800">
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          📁 {uploadedImages.length}개 이미지 업로드됨
+                        </p>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Template Prompt */}
+                  {selectedTemplate && (
+                    <div className="bg-amber-50 dark:bg-amber-950/20 rounded-lg p-4 border-2 border-amber-300 dark:border-amber-700">
+                      <h3 className="font-medium mb-3 text-amber-900 dark:text-amber-100">
+                        📝 템플릿 스타일
+                      </h3>
+                      <div className="p-3 bg-white dark:bg-gray-900 rounded border border-amber-200 dark:border-amber-800">
+                        <p className="text-sm font-medium mb-2 text-amber-700 dark:text-amber-300">
+                          {selectedTemplate.name}
+                        </p>
+                        <p className="text-xs text-gray-600 dark:text-gray-400 italic">
+                          {selectedTemplate.prompt}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* User Input Prompt */}
+                  <div className="bg-blue-50 dark:bg-blue-950/20 rounded-lg p-4 border-2 border-blue-300 dark:border-blue-700">
+                    <h3 className="font-medium mb-3 text-blue-900 dark:text-blue-100">
+                      ✏️ 편집 지시사항
+                    </h3>
+                    {combinedPrompt ? (
+                      <div className="p-3 bg-white dark:bg-gray-900 rounded border border-blue-200 dark:border-blue-800">
+                        <p className="text-sm text-gray-700 dark:text-gray-300">
+                          {customPrompt || "추가 지시사항이 없습니다"}
+                        </p>
+                        {selectedPrompts.length > 0 && (
+                          <div className="mt-2 pt-2 border-t border-blue-200 dark:border-blue-800">
+                            <p className="text-xs text-blue-600 dark:text-blue-400 mb-1">선택된 스타일:</p>
+                            <p className="text-xs text-gray-600 dark:text-gray-400">
+                              {selectedPrompts.join(', ')}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <p className="text-sm text-gray-500 italic">
+                        편집 지시사항을 입력해주세요
                       </p>
-                    </div>
-                  )}
-                  {uploadedImages.length > 0 && (
-                    <div className="mb-4 p-3 bg-accent/50 rounded">
-                      <p className="text-sm">{uploadedImages.length}개 이미지 업로드됨</p>
-                    </div>
-                  )}
-                  {combinedPrompt && (
-                    <div className="p-3 bg-card rounded border text-sm">
-                      {combinedPrompt}
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
