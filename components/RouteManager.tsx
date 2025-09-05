@@ -107,7 +107,7 @@ export function RouteManager({
           disabled={currentStep === 0}
           className={cn(
             currentStep === 0 && "invisible",
-            "hover:bg-gray-100 dark:hover:bg-gray-800 border-gray-300 dark:border-gray-600"
+            "bg-blue-500 hover:bg-blue-600 text-white border-blue-500 hover:border-blue-600"
           )}
         >
           <ChevronLeft className="w-4 h-4 mr-2" />
@@ -132,7 +132,7 @@ export function RouteManager({
             className={cn(
               currentStep === steps.length - 1
                 ? "bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg"
-                : "bg-primary hover:bg-primary/90"
+                : "bg-blue-500 hover:bg-blue-600 text-white"
             )}
           >
             {currentStep === steps.length - 1 ? (
